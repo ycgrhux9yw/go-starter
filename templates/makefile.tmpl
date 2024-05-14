@@ -1,0 +1,8 @@
+compose.up:
+	sudo docker compose -f compose.yaml up -d
+
+compose.down:
+	sudo docker compose -f compose.yaml down
+app.run:
+	go mod tidy 
+	go run cmd/main.go
