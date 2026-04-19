@@ -18,13 +18,17 @@ func NewViper(in string) *viper.Viper {
 	case "staging":
 		in = "config.staging"
 	default:
+		// default to dev environment for local development
 		in = "config.dev"
 	}
 
 	v.SetConfigName(in)
 	v.SetConfigType("yaml")
+	// search order: parent dir first, then current dir
 	v.AddConfigPath("../")
 	v.AddConfigPath("./")
+	// also check configs subdirectory
+	v.AddConfigPath("./configs")
 
 	if err := v.ReadInConfig(); err != nil {
 		panic(fmt.Sprintf("failed to read config '%s': %v", in, err))
