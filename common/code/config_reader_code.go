@@ -2,7 +2,10 @@ package code
 
 var ViperConfiguration = `package config
 
-import "github.com/spf13/viper"
+import (
+	"fmt"
+	"github.com/spf13/viper"
+)
 
 func NewViper(in string) *viper.Viper {
 	v := viper.New()
@@ -12,6 +15,8 @@ func NewViper(in string) *viper.Viper {
 		in = "config.prod"
 	case "dev":
 		in = "config.dev"
+	case "staging":
+		in = "config.staging"
 	default:
 		in = "config.dev"
 	}
@@ -22,7 +27,7 @@ func NewViper(in string) *viper.Viper {
 	v.AddConfigPath("./")
 
 	if err := v.ReadInConfig(); err != nil {
-		panic(err)
+		panic(fmt.Sprintf("failed to read config '%s': %v", in, err))
 	}
 
 	return v
