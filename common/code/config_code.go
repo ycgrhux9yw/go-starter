@@ -9,7 +9,7 @@ var (
 			"port":      5432,
 			"name":      "test",
 			"sslmode":   "disable",
-			"time_zone": "UTC",
+			"time_zone": "Asia/Jakarta",
 		},
 	}
 
@@ -36,6 +36,8 @@ var (
 	}
 )
 
+// ConfigurationFileGenerate returns a default config map for the given database driver.
+// Defaults to mysql if an unrecognized driver is provided.
 func ConfigurationFileGenerate(using string) map[string]interface{} {
 	switch using {
 	case "mongodb":
