@@ -29,6 +29,11 @@ func NewViper(in string) *viper.Viper {
 	v.AddConfigPath("./")
 	// also check configs subdirectory
 	v.AddConfigPath("./configs")
+	// support configs at project root level
+	v.AddConfigPath("../../")
+
+	// allow environment variables to override config file values
+	v.AutomaticEnv()
 
 	if err := v.ReadInConfig(); err != nil {
 		panic(fmt.Sprintf("failed to read config '%s': %v", in, err))
